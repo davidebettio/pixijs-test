@@ -55,7 +55,7 @@ function mainLoop(delta) {
 }
 
 // first animation part (move on x axis)
-function animationPartOne() {
+function animationPartOne(delta) {
   paddle.vx = 2;
   paddle.x += paddle.vx;
   if(paddle.x >= (app.renderer.view.width - paddle.width)) {
@@ -64,7 +64,7 @@ function animationPartOne() {
 }
 
 // second animation part (rotate by 90 degrees)
-function animationPartTwo() {
+function animationPartTwo(delta) {
   paddle.rotation += 0.05;
   if(paddle.rotation >= Math.radians(90)) {
     state = animationFinished;
