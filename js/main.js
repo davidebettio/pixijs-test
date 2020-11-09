@@ -5,10 +5,12 @@ let Sprite = PIXI.Sprite;
 let paddle;
 let animationState;
 
+// support function for radians calc
 Math.radians = function(degrees) {
 	return degrees * Math.PI / 180;
 }
 
+// main pixijs app
 let app = new Application({ 
   width: 800,
   height: 600,
@@ -19,11 +21,13 @@ let app = new Application({
 });
 document.body.appendChild(app.view);
 
+// full page width
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 app.renderer.autoDensity = true;
 app.renderer.resize(window.innerWidth, window.innerHeight);
 
+// textures loading
 loader
   .add("img/paddle.png")
   .load(texturesLoaded);
@@ -43,13 +47,14 @@ function texturesLoaded() {
     
     // add to stage and manage ticker
     app.stage.addChild(paddle);
-    app.ticker.add(delta => gameLoop(delta));
+    app.ticker.add(delta => mainLoop(delta));
 }
 
-function gameLoop(delta) {
+function mainLoop(delta) {
   state(delta);
 }
 
+// first animation part (move on x axis)
 function animationPartOne() {
   paddle.vx = 2;
   paddle.x += paddle.vx;
@@ -58,6 +63,7 @@ function animationPartOne() {
   }
 }
 
+// second animation part (rotate by 90 degrees)
 function animationPartTwo() {
   paddle.rotation += 0.05;
   if(paddle.rotation >= Math.radians(90)) {
